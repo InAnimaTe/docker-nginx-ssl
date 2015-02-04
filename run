@@ -1,0 +1,9 @@
+#!/bin/bash
+
+## Lets get in our keys and make the necessary files
+[ $SSL_KEY ] && echo "$SSL_KEY" > /etc/nginx/ssl/domain.key
+[ $SSL_CERT ] && echo "$SSL_CERT" > /etc/nginx/ssl/domain.crt
+[ $SSL_TRUST_CERT ] && echo "$SSL_TRUST_CERT" > /etc/nginx/ssl/trust.crt
+
+## I think we are ready!!!
+nginx
