@@ -43,5 +43,8 @@ This will create a ramcache of `100MiB` in RAM and mount it to `/mnt`. Then you 
 
 #### Send your ssl key/cert over vars
 
-    docs to come...
+Let make note of the imporant vars here and what they mean to nginx. If you aren't sure on what is what, check [here](https://gist.github.com/bradmontgomery/6487319) for a good tutorial.
 
+* `SSL_KEY` - *ssl_certificate_key*
+* `SSL_CERT` - *ssl_certificate*
+* `SSL_TRUST_CERT` - *ssl_trusted_certificate*
