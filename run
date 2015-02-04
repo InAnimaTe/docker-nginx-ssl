@@ -5,5 +5,9 @@
 [ $SSL_CERT ] && echo -en "$SSL_CERT" > /etc/nginx/ssl/domain.crt
 [ $SSL_TRUST_CERT ] && echo -en "$SSL_TRUST_CERT" > /etc/nginx/ssl/trust.crt
 
+## And maybe they want some ramcache?
+
+[ $RAMCACHE_LOC ] && mount -t tmpfs -o size=$RAMCACHE_SIZE tmpfs $RAMCACHE_LOC
+
 ## I think we are ready!!!
 nginx

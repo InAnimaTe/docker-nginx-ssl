@@ -1,4 +1,7 @@
-**This build resembles the dockerfile/nginx build with one small change: we utilize a run script that checks for ssl cert/keys provided via env variables:)**
+**This build resembles the dockerfile/nginx build with the following changes: **
+
+* We utilize a run script that checks for ssl cert/keys provided via env variables
+* This run script also allows for setting up a ramcache directory of specified size. This is meant for nginx proxy_cache so use it wisely
 
 ## Nginx Dockerfile
 
@@ -29,6 +32,16 @@ This repository contains **Dockerfile** of [Nginx](http://nginx.org/) for [Docke
 
 After few seconds, open `http://<host>` to see the welcome page.
 
+#### Utilizing ramcache for your nginx proxy cache
+
+* Note that you will need to enable proxy cache in your nginx configuration for your site and then point to the directory specific to `RAMCACHE_LOC`
+* `RAMCACHE_SIZE` needs to be a value acceptable to the `size=` parameter to the `mount` command!
+
+    docker run -d -p 80:80 -e RAMCACHE_LOC="/mnt" -e RAMCACHE_SIZE="100M" inanimate/nginx-ssl
+
+This will create a ramcache of `100MiB` in RAM and mount it to `/mnt`. Then you can specify /mnt as the location to store cache in nginx!
+
 #### Send your ssl key/cert over vars
 
     docs to come...
+
