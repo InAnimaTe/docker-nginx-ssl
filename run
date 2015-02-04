@@ -1,9 +1,13 @@
 #!/bin/bash
 
 ## Lets get in our keys and make the necessary files
-[ "$SSL_KEY" ] && echo -en "$SSL_KEY" > /etc/nginx/ssl/domain.key
-[ "$SSL_CERT" ] && echo -en "$SSL_CERT" > /etc/nginx/ssl/domain.crt
-[ "$SSL_TRUST_CERT" ] && echo -en "$SSL_TRUST_CERT" > /etc/nginx/ssl/trust.crt
+## Because nsenter has issues entering a container that has environment variables that contain spaces, we are going to change the SSL* vars so we can docker-enter without problems
+
+[ "$SSL_KEY" ] && echo -en "$SSL_KEY" > /etc/nginx/ssl/domain.key && export SSL_KEY=Success
+[ "$SSL_CERT" ] && echo -en "$SSL_CERT" > /etc/nginx/ssl/domain.crt && export SSL_CERT=Success
+[ "$SSL_TRUST_CERT" ] && echo -en "$SSL_TRUST_CERT" > /etc/nginx/ssl/trust.crt && export SSL_TRUST_CERT=Success
+
+
 
 ## And maybe they want some ramcache?
 
