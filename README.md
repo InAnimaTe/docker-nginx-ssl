@@ -1,4 +1,4 @@
-**This build resembles the dockerfile/nginx build with the following changes: **
+**This build resembles the dockerfile/nginx build with the following changes**
 
 * We utilize a run script that checks for ssl cert/keys provided via env variables
 * This run script also allows for setting up a ramcache directory of specified size. This is meant for nginx proxy_cache so use it wisely
