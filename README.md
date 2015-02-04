@@ -41,10 +41,32 @@ After few seconds, open `http://<host>` to see the welcome page.
 
 This will create a ramcache of `100MiB` in RAM and mount it to `/mnt`. Then you can specify /mnt as the location to store cache in nginx!
 
-#### Send your ssl key/cert over vars
+#### Sending your ssl key/cert over vars
 
-Let make note of the imporant vars here and what they mean to nginx. If you aren't sure on what is what, check [here](https://gist.github.com/bradmontgomery/6487319) for a good tutorial.
+Let make note of the imporant vars here and what they mean to nginx. If you aren't sure on what is what, check [here](https://gist.github.com/bradmontgomery/6487319) for a good tutorial or see how I [did](https://gist.github.com/InAnimaTe/2e2b1058af02d3ac2033) it.
 
 * `SSL_KEY` - *ssl_certificate_key*
 * `SSL_CERT` - *ssl_certificate*
 * `SSL_TRUST_CERT` - *ssl_trusted_certificate*
+
+Obviously, the way you use variables is up to your site configuration in nginx. You may not even need the trusted cert unless you enable ssl stapling.
+
+Initially, I tried to just add these keys in their newline form to my crane.yml (more on crane [here](https://github.com/michaelsauter/crane)). This didn't work:(
+I then tested with the `docker run` command specifying them as `SSL_CERT="<cert with newlines>"` which yielded good results! After dabbling around with yaml syntax for handling multi-line portions of text, I decided I was just going to have to flatten out the ssl stuff to a single line string. This meant replacing all the newlines with literal `\n`'s.
+
+So here are the two ways to conquer this via `docker run`
+
+* `{snip..}` is just where I cut extra for this example.
+
+```bash
+docker run -d -p 80:80 -e SSL_CERT="-----BEGIN CERTIFICATE-----\nMIIGSzCCBTOgAwIBAgI{snip..}" inanimate/nginx-ssl
+```
+
+You can also do multiline on your prompt:
+
+```bash
+docker run -d -p 80:80 -e SSL_CERT="-----BEGIN CERTIFICATE-----
+MIIGSzCCBTOgAwIBAgI{snip..}" inanimate/nginx-ssl
+```
+
+Either way you do, atm, there is one sad flaw: nsenter doesn't support entering a namespace which has environment variables that contain spaces. There is already an [issue](https://github.com/jpetazzo/nsenter/pull/52#issuecomment-72889442) existent on this so hopefully it gets fixed one day:)
