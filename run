@@ -7,7 +7,7 @@
 
 ## And maybe they want some ramcache?
 
-[ $RAMCACHE_LOC ] && mount -t tmpfs -o size=$RAMCACHE_SIZE tmpfs $RAMCACHE_LOC
+[ $RAMCACHE_LOC ] && mkdir -p $RAMCACHE_LOC && mount -t tmpfs -o size=$RAMCACHE_SIZE tmpfs $RAMCACHE_LOC
 
 ## I think we are ready!!!
 nginx
