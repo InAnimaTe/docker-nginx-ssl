@@ -1,13 +1,18 @@
 #!/bin/bash
 
 ## Lets get in our keys and make the necessary files
-[ $SSL_KEY ] && echo -en "$SSL_KEY" > /etc/nginx/ssl/domain.key
-[ $SSL_CERT ] && echo -en "$SSL_CERT" > /etc/nginx/ssl/domain.crt
-[ $SSL_TRUST_CERT ] && echo -en "$SSL_TRUST_CERT" > /etc/nginx/ssl/trust.crt
+[ "$SSL_KEY" ] && echo -en "$SSL_KEY" > /etc/nginx/ssl/domain.key
+[ "$SSL_CERT" ] && echo -en "$SSL_CERT" > /etc/nginx/ssl/domain.crt
+[ "$SSL_TRUST_CERT" ] && echo -en "$SSL_TRUST_CERT" > /etc/nginx/ssl/trust.crt
 
 ## And maybe they want some ramcache?
 
 [ $RAMCACHE_LOC ] && mkdir -p $RAMCACHE_LOC && mount -t tmpfs -o size=$RAMCACHE_SIZE tmpfs $RAMCACHE_LOC
+
+# testing
+
+id
+pwd
 
 ## I think we are ready!!!
 nginx
