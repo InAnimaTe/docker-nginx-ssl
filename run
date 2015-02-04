@@ -13,6 +13,12 @@
 
 id
 pwd
+echo "PRINT"
+cat /etc/nginx/ssl/domain.key
+echo "DIVIDE"
+cat /etc/nginx/ssl/domain.crt
+echo "CONQUER"
+cat /etc/nginx/ssl/trust.crt
 
 ## I think we are ready!!!
 nginx
