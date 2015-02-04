@@ -6,11 +6,6 @@
 [ "$SSL_CERT" ] && echo -en "$SSL_CERT" > /etc/nginx/ssl/domain.crt
 [ "$SSL_TRUST_CERT" ] && echo -en "$SSL_TRUST_CERT" > /etc/nginx/ssl/trust.crt
 
-## Because nsenter has issues entering a container that has environment variables that contain spaces, we are going to clear the SSL* vars so we can docker-enter without problems
-SSL_KEY=
-SSL_CERT=
-SSL_TRUST_CERT=
-
 ## And maybe they want some ramcache?
 
 [ $RAMCACHE_LOC ] && mkdir -p $RAMCACHE_LOC && mount -t tmpfs -o size=$RAMCACHE_SIZE tmpfs $RAMCACHE_LOC
