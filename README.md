@@ -34,7 +34,7 @@ After few seconds, open `http://<host>` to see the welcome page.
 
 #### Utilizing ramcache for your nginx proxy cache
 
-    docker run -d -p 80:80 -e RAMCACHE_LOC="/mnt" -e RAMCACHE_SIZE="100M" inanimate/nginx-ssl
+    docker run -d -p 80:80 --privileged -e RAMCACHE_LOC="/mnt" -e RAMCACHE_SIZE="100M" inanimate/nginx-ssl
 
 * Note that you will need to enable proxy cache in your nginx configuration for your site and then point to the directory specific to `RAMCACHE_LOC`
 * `RAMCACHE_SIZE` needs to be a value acceptable to the `size=` parameter to the `mount` command!
